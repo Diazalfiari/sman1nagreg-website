@@ -86,6 +86,7 @@ Setelah deploy berhasil:
 ### 🔧 Jika Ada Error:
 
 **❌ Error: "Failed to open stream: No such file or directory in /app/vendor/autoload.php"**
+
 ```bash
 # Solusi 1: Re-deploy dengan fix yang sudah dibuat
 git add .
