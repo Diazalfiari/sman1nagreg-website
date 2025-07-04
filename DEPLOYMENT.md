@@ -98,6 +98,52 @@ QUEUE_CONNECTION=database
 
 ## 🚨 Troubleshooting
 
+### ❌ Railway Error: "vendor/autoload.php not found"
+
+**STEP-BY-STEP FIX:**
+
+#### 1. Clear Railway Cache
+
+```bash
+# Add environment variables di Railway:
+NIXPACKS_NO_CACHE=1
+COMPOSER_PROCESS_TIMEOUT=600
+```
+
+#### 2. Let Railway Auto-Detect (RECOMMENDED)
+
+```bash
+# Remove custom config dan let Railway handle:
+mv nixpacks.toml nixpacks.toml.backup
+git add . && git commit -m "Remove nixpacks config for auto-detection"
+git push origin main
+# Redeploy di Railway
+```
+
+#### 3. Manual Deploy Commands di Railway CLI
+
+```bash
+# Install Railway CLI: npm install -g @railway/cli
+railway login
+railway link
+railway run composer install --no-dev --optimize-autoloader
+railway run php artisan migrate --force
+```
+
+#### 4. Nuclear Option - Fresh Railway Project
+
+1. Delete current Railway project
+2. Create NEW project dari GitHub
+3. JANGAN set nixpacks.toml
+4. Add PostgreSQL database
+5. Set environment variables:
+    ```
+    APP_KEY=base64:cf6+s6/l/joIDj9nmtO6c2/KI4aNAEMK+ZZUeN1cDJs=
+    APP_ENV=production
+    APP_DEBUG=false
+    NIXPACKS_NO_CACHE=1
+    ```
+
 ### Error: "No application encryption key"
 
 ```bash
