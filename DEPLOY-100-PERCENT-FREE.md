@@ -4,11 +4,11 @@
 
 **Complete free hosting solution untuk SMAN 1 Nagreg website:**
 
-- **Website:** Vercel (gratis selamanya)
-- **Database:** PlanetScale (gratis 5GB MySQL)
-- **Domain:** Vercel subdomain (gratis) atau custom domain
-- **SSL:** Auto-generated (gratis)
-- **CDN:** Global edge network (gratis)
+-   **Website:** Vercel (gratis selamanya)
+-   **Database:** PlanetScale (gratis 5GB MySQL)
+-   **Domain:** Vercel subdomain (gratis) atau custom domain
+-   **SSL:** Auto-generated (gratis)
+-   **CDN:** Global edge network (gratis)
 
 **Total cost: $0/month forever! 🎉**
 
@@ -45,9 +45,9 @@
 2. **Create password** → **"Create password"**
 3. **Select framework:** `Laravel`
 4. **Copy connection string:**
-   ```
-   mysql://username:password@host/database?sslaccept=strict
-   ```
+    ```
+    mysql://username:password@host/database?sslaccept=strict
+    ```
 5. **Save this** - akan digunakan di Vercel environment variables
 
 #### **Step 4: Setup Database Schema**
@@ -89,21 +89,21 @@ CREATE TABLE `school_profiles` (
 );
 
 -- Add sample data
-INSERT INTO `school_profiles` VALUES 
-(1, 'SMAN 1 Nagreg', 'Jl. Raya Nagreg No. 123, Bandung', '022-1234567', 'info@sman1nagreg.sch.id', 
-'Menjadi sekolah unggulan yang menghasilkan lulusan berkualitas', 
-'Menyelenggarakan pendidikan berkualitas dengan mengembangkan potensi siswa', 
-'SMAN 1 Nagreg didirikan pada tahun 1985...', 
+INSERT INTO `school_profiles` VALUES
+(1, 'SMAN 1 Nagreg', 'Jl. Raya Nagreg No. 123, Bandung', '022-1234567', 'info@sman1nagreg.sch.id',
+'Menjadi sekolah unggulan yang menghasilkan lulusan berkualitas',
+'Menyelenggarakan pendidikan berkualitas dengan mengembangkan potensi siswa',
+'SMAN 1 Nagreg didirikan pada tahun 1985...',
 'Drs. Ahmad Suryadi, M.Pd', 'logo.png', NOW(), NOW());
 
-INSERT INTO `news` VALUES 
-(1, 'Sambutan Kepala Sekolah', 'sambutan-kepala-sekolah', 
-'Selamat datang di website resmi SMAN 1 Nagreg...', 
-'Sambutan hangat dari Kepala Sekolah untuk tahun ajaran baru', 
+INSERT INTO `news` VALUES
+(1, 'Sambutan Kepala Sekolah', 'sambutan-kepala-sekolah',
+'Selamat datang di website resmi SMAN 1 Nagreg...',
+'Sambutan hangat dari Kepala Sekolah untuk tahun ajaran baru',
 NULL, 'published', NOW(), NOW(), NOW()),
-(2, 'Penerimaan Peserta Didik Baru 2025', 'ppdb-2025', 
-'Informasi lengkap mengenai PPDB SMAN 1 Nagreg tahun 2025...', 
-'Pendaftaran dibuka mulai 1 Juli 2025', 
+(2, 'Penerimaan Peserta Didik Baru 2025', 'ppdb-2025',
+'Informasi lengkap mengenai PPDB SMAN 1 Nagreg tahun 2025...',
+'Pendaftaran dibuka mulai 1 Juli 2025',
 NULL, 'published', NOW(), NOW(), NOW());
 ```
 
@@ -176,22 +176,23 @@ git push origin main
 1. **Go to:** https://vercel.com
 2. **Sign up/Login** dengan GitHub account
 3. **Import Project:**
-   - Click **"New Project"**
-   - Select **`sman1nagreg-website`** repository
-   - Click **"Import"**
+
+    - Click **"New Project"**
+    - Select **`sman1nagreg-website`** repository
+    - Click **"Import"**
 
 4. **Configure Project:**
-   - **Framework Preset:** Other
-   - **Root Directory:** `./`
-   - **Build Command:** 
-     ```bash
-     composer install --no-dev --optimize-autoloader && npm ci && npm run build
-     ```
-   - **Output Directory:** `public`
-   - **Install Command:** 
-     ```bash
-     composer install && npm install
-     ```
+    - **Framework Preset:** Other
+    - **Root Directory:** `./`
+    - **Build Command:**
+        ```bash
+        composer install --no-dev --optimize-autoloader && npm ci && npm run build
+        ```
+    - **Output Directory:** `public`
+    - **Install Command:**
+        ```bash
+        composer install && npm install
+        ```
 
 #### **Step 5: Set Environment Variables**
 
@@ -230,12 +231,13 @@ SESSION_SAVE_PATH=/tmp/sessions
 **Visit:** `https://sman1nagreg.vercel.app/health`
 
 **Expected response:**
+
 ```json
 {
-  "status": "ok",
-  "database": "connected",
-  "connection": "mysql",
-  "timestamp": "2025-07-04T13:30:00Z"
+    "status": "ok",
+    "database": "connected",
+    "connection": "mysql",
+    "timestamp": "2025-07-04T13:30:00Z"
 }
 ```
 
@@ -249,41 +251,44 @@ SESSION_SAVE_PATH=/tmp/sessions
 
 ### **Performance Test:**
 
-- **Speed:** Should load < 2 seconds globally
-- **Mobile:** Responsive design works
-- **SEO:** Meta tags dan structure correct
+-   **Speed:** Should load < 2 seconds globally
+-   **Mobile:** Responsive design works
+-   **SEO:** Meta tags dan structure correct
 
 ## 💡 **FREE TIER LIMITS:**
 
 ### **PlanetScale Free (Hobby Plan):**
-- ✅ **5GB storage** (sangat cukup untuk school website)
-- ✅ **1 billion row reads/month** (unlimited for small sites)
-- ✅ **10 million row writes/month** (more than enough)
-- ✅ **1 database** dengan unlimited tables
+
+-   ✅ **5GB storage** (sangat cukup untuk school website)
+-   ✅ **1 billion row reads/month** (unlimited for small sites)
+-   ✅ **10 million row writes/month** (more than enough)
+-   ✅ **1 database** dengan unlimited tables
 
 ### **Vercel Free (Hobby Plan):**
-- ✅ **100GB bandwidth/month** (sangat generous)
-- ✅ **Unlimited static files**
-- ✅ **100 serverless function invocations/day** (enough for small traffic)
-- ✅ **Custom domains** supported
+
+-   ✅ **100GB bandwidth/month** (sangat generous)
+-   ✅ **Unlimited static files**
+-   ✅ **100 serverless function invocations/day** (enough for small traffic)
+-   ✅ **Custom domains** supported
 
 ## 🚨 **TROUBLESHOOTING:**
 
 ### **Common Build Errors:**
 
 1. **Composer fails:**
-   ```bash
-   # Add environment variable:
-   COMPOSER_PROCESS_TIMEOUT=600
-   ```
+
+    ```bash
+    # Add environment variable:
+    COMPOSER_PROCESS_TIMEOUT=600
+    ```
 
 2. **NPM build fails:**
-   ```bash
-   # Ensure package.json has:
-   "scripts": {
-     "build": "vite build"
-   }
-   ```
+    ```bash
+    # Ensure package.json has:
+    "scripts": {
+      "build": "vite build"
+    }
+    ```
 
 ### **Database Connection Issues:**
 
@@ -302,32 +307,34 @@ SESSION_SAVE_PATH=/tmp/sessions
 ### **Optional Enhancements:**
 
 1. **Custom Domain:**
-   - Buy domain dari provider manapun
-   - Add di Vercel → Project Settings → Domains
-   - Configure DNS records
+
+    - Buy domain dari provider manapun
+    - Add di Vercel → Project Settings → Domains
+    - Configure DNS records
 
 2. **Analytics:**
-   - Enable Vercel Analytics (free)
-   - Add Google Analytics
-   - Monitor performance
+
+    - Enable Vercel Analytics (free)
+    - Add Google Analytics
+    - Monitor performance
 
 3. **Monitoring:**
-   - Setup uptime monitoring
-   - Error tracking dengan Sentry
-   - Performance monitoring
+    - Setup uptime monitoring
+    - Error tracking dengan Sentry
+    - Performance monitoring
 
 ## 📊 **FINAL CHECKLIST:**
 
-- [ ] **PlanetScale account** created
-- [ ] **Database `sman1nagreg`** created  
-- [ ] **Tables and sample data** inserted
-- [ ] **Connection string** obtained
-- [ ] **Vercel account** created
-- [ ] **GitHub repository** connected
-- [ ] **Environment variables** configured
-- [ ] **Website deployed** and accessible
-- [ ] **Database connected** and working
-- [ ] **All features tested** and functional
+-   [ ] **PlanetScale account** created
+-   [ ] **Database `sman1nagreg`** created
+-   [ ] **Tables and sample data** inserted
+-   [ ] **Connection string** obtained
+-   [ ] **Vercel account** created
+-   [ ] **GitHub repository** connected
+-   [ ] **Environment variables** configured
+-   [ ] **Website deployed** and accessible
+-   [ ] **Database connected** and working
+-   [ ] **All features tested** and functional
 
 ## 🎉 **CONGRATULATIONS!**
 

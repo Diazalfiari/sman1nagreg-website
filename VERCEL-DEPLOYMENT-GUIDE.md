@@ -15,34 +15,34 @@
 ### **Option A: SQLite (Recommended - 100% Free & Simple)**
 
 1. **No setup required** - Works immediately
-2. **Perfect for demo** dan small websites  
+2. **Perfect for demo** dan small websites
 3. **Data stored in** `/tmp/database.sqlite` (resets on each deploy)
 4. **Advantages:**
-   - ✅ **Zero configuration**
-   - ✅ **No external dependencies**
-   - ✅ **Deploy immediately**
-   - ✅ **Perfect for testing**
+    - ✅ **Zero configuration**
+    - ✅ **No external dependencies**
+    - ✅ **Deploy immediately**
+    - ✅ **Perfect for testing**
 
 ### **Option B: Supabase (Free PostgreSQL - 500MB)**
 
 1. **Go to Supabase.com** → Sign up (GitHub login)
-2. **Create Project:** `sman1nagreg`  
+2. **Create Project:** `sman1nagreg`
 3. **Get connection string:**
-   - Settings → Database → Connection string
-   - Format: `postgresql://postgres:password@host:5432/postgres`
+    - Settings → Database → Connection string
+    - Format: `postgresql://postgres:password@host:5432/postgres`
 4. **Import data** (optional):
-   ```bash
-   pg_dump old_database > dump.sql
-   psql new_connection_string < dump.sql
-   ```
+    ```bash
+    pg_dump old_database > dump.sql
+    psql new_connection_string < dump.sql
+    ```
 
 ### **Option C: Railway MySQL ($5 Credit - Good for 1-2 months)**
 
 1. **Go to Railway.app** → Sign up (GitHub login)
 2. **New Project** → **Add MySQL**
 3. **Get connection string:**
-   - MySQL service → Variables → Copy `DATABASE_URL`
-   - Format: `mysql://username:password@host:3306/database`
+    - MySQL service → Variables → Copy `DATABASE_URL`
+    - Format: `mysql://username:password@host:3306/database`
 
 ### **Option D: Local MySQL (Development Only)**
 
