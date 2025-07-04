@@ -44,11 +44,22 @@ git push origin main
 
 1. **Railway Dashboard** → Your Project
 2. **Add PostgreSQL Service** (jika belum ada):
-    - Click "New" → "Database" → "Add PostgreSQL"
-3. **Connect to Web Service**:
-    - PostgreSQL service → "Connect" tab
-    - Select your web service
-    - Railway auto-inject environment variables
+   - Click "New" → "Database" → "Add PostgreSQL"
+3. **Connect to Web Service - DETAILED STEPS**:
+
+   **Method 1: Using DATABASE_URL (Recommended)**
+   - Go to your **Web Service** (bukan PostgreSQL service)
+   - Settings → Environment → Variables
+   - Add new variable:
+     ```
+     Name: DATABASE_URL
+     Value: ${{ Postgres.DATABASE_URL }}
+     ```
+   
+   **Method 2: Individual Variables**
+   - PostgreSQL service → "Connect" tab
+   - Select your web service
+   - Railway auto-inject environment variables
 
 ### Step 3: Update Railway Environment Variables
 
