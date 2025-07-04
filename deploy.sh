@@ -43,6 +43,9 @@ done
 if php artisan migrate:status --quiet 2>/dev/null; then
     echo "🗄️ Running database migrations..."
     php artisan migrate --force --no-interaction
+    
+    echo "🌱 Seeding database..."
+    php artisan db:seed --force --no-interaction || echo "⚠️ Seeding failed, continuing..."
 else
     echo "⚠️ Skipping migrations - database not ready"
 fi
