@@ -1,6 +1,11 @@
 #!/bin/bash
-echo "🔧 Custom build script for Railway"
+echo "� Laravel build script for Vercel"
 echo "=================================="
+
+# Create necessary directories for serverless
+echo "📁 Creating serverless directories..."
+mkdir -p /tmp/storage/framework/{sessions,views,cache}
+mkdir -p /tmp/bootstrap/cache
 
 # Install composer dependencies
 echo "📦 Installing Composer dependencies..."
