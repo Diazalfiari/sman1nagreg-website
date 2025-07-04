@@ -18,6 +18,16 @@ use Illuminate\Support\Facades\Auth;
 // Public Routes
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
+// Health check route untuk Railway
+Route::get('/health', function () {
+    return response()->json([
+        'status' => 'ok',
+        'timestamp' => now(),
+        'app' => config('app.name'),
+        'database' => 'connected'
+    ]);
+})->name('health');
+
 // Profile Routes
 Route::prefix('profil')->name('profile.')->group(function () {
     Route::get('/sekolah', [ProfileController::class, 'schoolProfile'])->name('school');
