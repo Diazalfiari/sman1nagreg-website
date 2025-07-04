@@ -1,0 +1,31 @@
+# Netlify Configuration for Laravel
+
+# Build settings
+[build]
+  base = "/"
+  command = "composer install --no-dev --optimize-autoloader && php artisan config:cache && npm ci && npm run build"
+  publish = "public"
+
+# Environment variables akan di-set di Netlify Dashboard
+[build.environment]
+  PHP_VERSION = "8.2"
+
+# Redirects untuk Laravel routing
+[[redirects]]
+  from = "/*"
+  to = "/index.php"
+  status = 200
+  conditions = {Role = ["admin"]}
+
+# Headers untuk security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/build/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
