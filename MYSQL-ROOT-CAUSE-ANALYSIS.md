@@ -84,7 +84,39 @@ DB_PASSWORD="${{MySQL-SERVICE-ID.MYSQL_ROOT_PASSWORD}}"
 # DATABASE_URL (delete this completely)
 ```
 
-## 🔧 **STEP-BY-STEP FIX:**
+## � **UPDATE: BUILD ERROR DURING REDEPLOY**
+
+**Before fixing database connection, ada build error yang perlu diselesaikan dulu:**
+
+```
+✕ RUN nix-env -if .nixpacks/nixpkgs-e24b4c09e963677b1beea49d411cd315a024ad3a.nix && nix-collect-garbage -d
+ERROR: Docker build failed
+```
+
+**Root Cause:** Nixpacks build cache corrupted setelah change PostgreSQL → MySQL.
+
+### **🔧 IMMEDIATE FIX FOR BUILD ERROR:**
+
+**Railway Dashboard** → **Web Service** → **Settings** → **Environment**
+
+**UPDATE environment variables:**
+
+```bash
+# CHANGE ini:
+NIXPACKS_NO_CACHE="true"  # dari "1" ke "true"
+
+# ADD ini:
+NIXPACKS_BUILD_TIMEOUT="1200"
+NIXPACKS_NO_DEFAULT_CACHE="true"
+```
+
+**Then REDEPLOY.**
+
+### **After Build Success, Then Fix Database:**
+
+Setelah build berhasil, baru implement database connection fix di bawah ini.
+
+## �🔧 **STEP-BY-STEP FIX:**
 
 ### **Step 1: Get MySQL Service ID**
 
