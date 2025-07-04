@@ -74,8 +74,50 @@ COMPOSER_PROCESS_TIMEOUT=600
 
 ### Step 4: Redeploy
 
--   Railway → Deployments → "Redeploy Latest"
--   Monitor logs: migrations + seeding akan run
+**Apa yang di-redeploy:**
+
+-   Laravel application code yang sudah di-push ke GitHub
+-   Environment variables yang baru (termasuk DATABASE_URL)
+-   Build process: composer install, npm build, migrations
+
+**Cara redeploy di Railway:**
+
+1. **Railway Dashboard** → Your Project
+2. **Web Service** (aplikasi Laravel Anda)
+3. **"Deployments"** tab
+4. **"Redeploy Latest"** button (atau "Deploy Latest Commit")
+5. **Monitor logs** untuk melihat process:
+    ```
+    ✅ Installing Composer dependencies...
+    ✅ Building production assets...
+    ✅ Running database migrations...
+    ✅ Database seeding...
+    ✅ Starting web server...
+    ```
+
+**Kenapa perlu redeploy:**
+
+-   Environment variables baru (DATABASE_URL) perlu di-load
+-   Laravel perlu restart untuk menggunakan PostgreSQL connection
+-   Migration dan seeding akan run dengan database baru
+
+**Expected deployment time:** 3-5 menit
+
+**🔍 PENTING: Yang di-redeploy adalah WEB SERVICE (Laravel app), BUKAN PostgreSQL!**
+
+**PostgreSQL service:**
+
+-   ✅ **TIDAK perlu redeploy** - sudah running
+-   ✅ **Tetap berjalan** - database server tetap aktif
+-   ✅ **Hanya provide connection** - tinggal dikasih URL-nya
+
+**Web Service (Laravel app):**
+
+-   🔄 **INI yang perlu redeploy** - aplikasi Laravel
+-   🔄 **Restart dengan config baru** - load DATABASE_URL
+-   🔄 **Connect ke PostgreSQL** yang sudah running
+
+**Jadi:** PostgreSQL tetap jalan, Laravel app yang restart untuk connect ke database.
 
 ## 🎯 **Expected Result:**
 
