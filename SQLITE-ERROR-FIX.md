@@ -15,9 +15,9 @@ Database file at path [/app/database/database.sqlite] does not exist.
 
 ## ✅ **SOLUSI YANG SUDAH DITERAPKAN:**
 
-### 1. **Set DB_CONNECTION=pgsql**
+### 1. **Set DB_CONNECTION=mysql**
 
--   Explicitly set database connection ke PostgreSQL
+-   Explicitly set database connection ke MySQL
 -   Railway akan inject credentials otomatis
 
 ### 2. **Database Seeding Added**
@@ -36,21 +36,21 @@ Database file at path [/app/database/database.sqlite] does not exist.
 
 ```bash
 git add .
-git commit -m "Fix: Set DB_CONNECTION=pgsql + add seeding"
+git commit -m "Fix: Set DB_CONNECTION=mysql + add seeding"
 git push origin main
 ```
 
-### Step 2: Railway PostgreSQL Setup
+### Step 2: Railway MySQL Setup
 
 1. **Railway Dashboard** → Your Project
-2. **Add PostgreSQL Service** (jika belum ada):
-    - Click "New" → "Database" → "Add PostgreSQL"
+2. **Add MySQL Service** (jika belum ada):
+    - Click "New" → "Database" → "Add MySQL"
 3. **Get Database Connection Info**:
-    - PostgreSQL service → **"Connect"** tab
+    - MySQL service → **"Connect"** tab
     - **Public Network** (pilih ini)
     - Copy **Connection URL**:
         ```
-        postgresql://postgres:********@trolley.proxy.rlwy.net:15752/railway
+        mysql://root:********@trolley.proxy.rlwy.net:25727/railway
         ```
 
 ### Step 3: Update Railway Environment Variables
@@ -62,8 +62,8 @@ APP_NAME="SMAN 1 Nagreg"
 APP_ENV=production
 APP_KEY=base64:TM0Fr4ZzUDu266Vp2BeJofBz5LsAA484wgbkG9Tn2xs=
 APP_DEBUG=true
-DB_CONNECTION=pgsql
-DATABASE_URL=postgresql://postgres:your-password@trolley.proxy.rlwy.net:15752/railway
+DB_CONNECTION=mysql
+DATABASE_URL=mysql://root:your-password@trolley.proxy.rlwy.net:25727/railway
 SESSION_DRIVER=file
 CACHE_STORE=file
 NIXPACKS_NO_CACHE=1
@@ -103,9 +103,9 @@ COMPOSER_PROCESS_TIMEOUT=600
 
 **Expected deployment time:** 3-5 menit
 
-**🔍 PENTING: Yang di-redeploy adalah WEB SERVICE (Laravel app), BUKAN PostgreSQL!**
+**🔍 PENTING: Yang di-redeploy adalah WEB SERVICE (Laravel app), BUKAN MySQL!**
 
-**PostgreSQL service:**
+**MySQL service:**
 
 -   ✅ **TIDAK perlu redeploy** - sudah running
 -   ✅ **Tetap berjalan** - database server tetap aktif
@@ -115,14 +115,14 @@ COMPOSER_PROCESS_TIMEOUT=600
 
 -   🔄 **INI yang perlu redeploy** - aplikasi Laravel
 -   🔄 **Restart dengan config baru** - load DATABASE_URL
--   🔄 **Connect ke PostgreSQL** yang sudah running
+-   🔄 **Connect ke MySQL** yang sudah running
 
-**Jadi:** PostgreSQL tetap jalan, Laravel app yang restart untuk connect ke database.
+**Jadi:** MySQL tetap jalan, Laravel app yang restart untuk connect ke database.
 
 ## 🎯 **Expected Result:**
 
 ```
-✅ PostgreSQL connected
+✅ MySQL connected
 ✅ Migrations run successfully
 ✅ Database seeded with news, school profile
 ✅ Website loads with proper data
@@ -143,12 +143,12 @@ $schoolProfile = null;
 
 2. **Set APP_DEBUG=false** untuk hide database errors
 
-## 📋 **Railway PostgreSQL Connection Checklist:**
+## 📋 **Railway MySQL Connection Checklist:**
 
--   [ ] PostgreSQL service created
--   [ ] PostgreSQL connected to web service
+-   [ ] MySQL service created
+-   [ ] MySQL connected to web service
 -   [ ] Environment variables auto-injected
--   [ ] DB_CONNECTION=pgsql set manually
+-   [ ] DB_CONNECTION=mysql set manually
 -   [ ] Redeploy completed
 
-**🔥 PostgreSQL + seeding akan solve semua database errors!**
+**🔥 MySQL + seeding akan solve semua database errors!**
