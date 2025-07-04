@@ -44,26 +44,18 @@ git push origin main
 
 1. **Railway Dashboard** → Your Project
 2. **Add PostgreSQL Service** (jika belum ada):
-   - Click "New" → "Database" → "Add PostgreSQL"
-3. **Connect to Web Service - DETAILED STEPS**:
-
-   **Method 1: Using DATABASE_URL (Recommended)**
-   - Go to your **Web Service** (bukan PostgreSQL service)
-   - Settings → Environment → Variables
-   - Add new variable:
-     ```
-     Name: DATABASE_URL
-     Value: ${{ Postgres.DATABASE_URL }}
-     ```
-   
-   **Method 2: Individual Variables**
-   - PostgreSQL service → "Connect" tab
-   - Select your web service
-   - Railway auto-inject environment variables
+    - Click "New" → "Database" → "Add PostgreSQL"
+3. **Get Database Connection Info**:
+    - PostgreSQL service → **"Connect"** tab
+    - **Public Network** (pilih ini)
+    - Copy **Connection URL**:
+        ```
+        postgresql://postgres:********@trolley.proxy.rlwy.net:15752/railway
+        ```
 
 ### Step 3: Update Railway Environment Variables
 
-Set ini di Railway → Settings → Environment:
+Set ini di **Web Service** → Settings → Environment:
 
 ```
 APP_NAME="SMAN 1 Nagreg"
@@ -71,11 +63,14 @@ APP_ENV=production
 APP_KEY=base64:TM0Fr4ZzUDu266Vp2BeJofBz5LsAA484wgbkG9Tn2xs=
 APP_DEBUG=true
 DB_CONNECTION=pgsql
+DATABASE_URL=postgresql://postgres:your-password@trolley.proxy.rlwy.net:15752/railway
 SESSION_DRIVER=file
 CACHE_STORE=file
 NIXPACKS_NO_CACHE=1
 COMPOSER_PROCESS_TIMEOUT=600
 ```
+
+**⚠️ IMPORTANT:** Replace `your-password` dengan password sebenarnya dari Connection URL yang Anda copy!
 
 ### Step 4: Redeploy
 
