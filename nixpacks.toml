@@ -1,17 +1,13 @@
-# Nixpacks configuration for Railway
-[phases.build]
-cmds = [
-    "composer install --no-dev --optimize-autoloader --no-interaction",
-    "npm ci && npm run build"
-]
+# Simple Railway configuration
+[providers]
+php = "8.2"
+node = "18"
 
-[phases.deploy]
-cmds = [
-    "php artisan config:cache",
-    "php artisan route:cache", 
-    "php artisan view:cache",
-    "php artisan migrate --force"
-]
+[phases.install]
+cmds = ["composer install --no-dev --optimize-autoloader"]
+
+[phases.build]  
+cmds = ["npm install && npm run build"]
 
 [start]
-cmd = "php artisan serve --host=0.0.0.0 --port=$PORT"
+cmd = "./start.sh"

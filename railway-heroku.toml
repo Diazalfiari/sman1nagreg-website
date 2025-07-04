@@ -1,0 +1,7 @@
+# Alternative: Use Heroku buildpack instead of Nixpacks
+[build]
+builder = "heroku/builder:22"
+buildpacks = ["heroku/php"]
+
+[deploy]
+startCommand = "vendor/bin/heroku-php-apache2 public/"
