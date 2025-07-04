@@ -42,7 +42,10 @@ APP_KEY=base64:cf6+s6/l/joIDj9nmtO6c2/KI4aNAEMK+ZZUeN1cDJs=
 APP_ENV=production
 APP_DEBUG=false
 APP_URL=https://nama-random.up.railway.app
+NIXPACKS_NO_CACHE=1
 ```
+
+**⚠️ PENTING:** Setelah menambah variables, klik "Redeploy Latest" untuk apply changes.
 
 #### 5. ✅ SELESAI!
 
@@ -81,6 +84,19 @@ Setelah deploy berhasil:
 2. **Heroku**: Settings → Domains → Add domain
 
 ### 🔧 Jika Ada Error:
+
+**❌ Error: "Failed to open stream: No such file or directory in /app/vendor/autoload.php"**
+```bash
+# Solusi 1: Re-deploy dengan fix yang sudah dibuat
+git add .
+git commit -m "Fix: Railway deployment configuration"
+git push origin main
+
+# Solusi 2: Manual fix di Railway
+# 1. Railway Dashboard → Settings → Variables → Add:
+#    NIXPACKS_NO_CACHE=1
+# 2. Redeploy: Deployments → "Redeploy Latest"
+```
 
 **500 Error?**
 

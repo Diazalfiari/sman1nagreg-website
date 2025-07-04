@@ -1,15 +1,16 @@
 # Nixpacks configuration for Railway
 [phases.build]
 cmds = [
-    "composer install --no-dev --optimize-autoloader",
+    "composer install --no-dev --optimize-autoloader --no-interaction",
     "npm ci && npm run build"
 ]
 
-[phases.setup]
+[phases.deploy]
 cmds = [
     "php artisan config:cache",
     "php artisan route:cache", 
-    "php artisan view:cache"
+    "php artisan view:cache",
+    "php artisan migrate --force"
 ]
 
 [start]
