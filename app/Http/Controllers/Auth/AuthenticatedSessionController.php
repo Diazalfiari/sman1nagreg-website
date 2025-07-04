@@ -28,6 +28,11 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        // Handle remember me functionality
+        if ($request->boolean('remember')) {
+            Auth::login(Auth::user(), true);
+        }
+
         return redirect()->intended(route('dashboard', absolute: false));
     }
 
