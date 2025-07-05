@@ -153,7 +153,7 @@
                     </div>
                     <div class="px-4 py-5 sm:p-6">
                         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                            <a href="#" class="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500 rounded-lg border border-gray-300 hover:border-blue-300">
+                            <a href="{{ route('admin.news.create') }}" class="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500 rounded-lg border border-gray-300 hover:border-blue-300">
                                 <div>
                                     <span class="rounded-lg inline-flex p-3 bg-blue-50 text-blue-700 ring-4 ring-white">
                                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -172,7 +172,7 @@
                                 </div>
                             </a>
 
-                            <a href="#" class="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500 rounded-lg border border-gray-300 hover:border-blue-300">
+                            <a href="{{ route('admin.news.index') }}" class="relative group bg-white p-6 focus-within:ring-2 focus-within:ring-inset focus-within:ring-blue-500 rounded-lg border border-gray-300 hover:border-blue-300">
                                 <div>
                                     <span class="rounded-lg inline-flex p-3 bg-green-50 text-green-700 ring-4 ring-white">
                                         <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -183,10 +183,10 @@
                                 <div class="mt-4">
                                     <h3 class="text-lg font-medium">
                                         <span class="absolute inset-0" aria-hidden="true"></span>
-                                        Kelola User
+                                        Kelola Berita
                                     </h3>
                                     <p class="mt-2 text-sm text-gray-500">
-                                        Manage users dan permissions
+                                        Manage artikel dan publikasi
                                     </p>
                                 </div>
                             </a>

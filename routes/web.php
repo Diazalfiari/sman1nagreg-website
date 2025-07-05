@@ -104,7 +104,13 @@ Route::middleware(['auth'])->group(function () {
     
     // Admin only routes
     Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
-        // Admin routes will be added here
+        // News management routes
+        Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
+        Route::post('/news', [NewsController::class, 'store'])->name('news.store');
+        Route::get('/news', [NewsController::class, 'manage'])->name('news.index');
+        Route::get('/news/{news}/edit', [NewsController::class, 'edit'])->name('news.edit');
+        Route::put('/news/{news}', [NewsController::class, 'update'])->name('news.update');
+        Route::delete('/news/{news}', [NewsController::class, 'destroy'])->name('news.destroy');
     });
     
     // Teacher routes
