@@ -76,7 +76,11 @@
                         </svg>
                     </div>
                     <blockquote class="text-2xl md:text-3xl font-bold text-gray-900 leading-relaxed">
-                        "Menjadi sekolah unggul yang menghasilkan lulusan berkarakter, berprestasi, berwawasan lingkungan, dan mampu bersaing di era global"
+                        @if($profile && $profile->vision)
+                            "{!! nl2br(e($profile->vision)) !!}"
+                        @else
+                            "Menjadi sekolah unggul yang menghasilkan lulusan berkarakter, berprestasi, berwawasan lingkungan, dan mampu bersaing di era global"
+                        @endif
                     </blockquote>
                 </div>
             </div>
@@ -94,7 +98,20 @@
                 <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-8">Langkah Strategis</h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            @if($profile && $profile->mission)
+                <!-- Misi from Database -->
+                <div class="bg-white rounded-xl p-8 shadow-lg mb-8">
+                    <div class="text-lg text-gray-700 leading-relaxed whitespace-pre-line">
+                        {!! nl2br(e($profile->mission)) !!}
+                    </div>
+                </div>
+            @else
+                <!-- Default Misi Items -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Default mission items here -->
+                </div>
+            @endif
+        </div>
                 <!-- Misi Items -->
                 <div class="space-y-6">
                     <div class="bg-white rounded-xl p-6 shadow-md hover:shadow-lg transition-shadow duration-300">

@@ -13,6 +13,7 @@ use App\Http\Controllers\{
     DashboardController
 };
 use App\Http\Controllers\Admin\UserController as AdminUserController;
+use App\Http\Controllers\Admin\SchoolProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -108,6 +109,10 @@ Route::middleware(['auth'])->group(function () {
         // User management routes
         Route::resource('users', AdminUserController::class);
         Route::patch('/users/{user}/toggle-status', [AdminUserController::class, 'toggleStatus'])->name('users.toggle-status');
+        
+        // School profile management routes
+        Route::get('/school/edit', [SchoolProfileController::class, 'edit'])->name('school.edit');
+        Route::put('/school', [SchoolProfileController::class, 'update'])->name('school.update');
         
         // News management routes
         Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');

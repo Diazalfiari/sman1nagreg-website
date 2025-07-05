@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SchoolProfile;
+use App\Models\SchoolSetting;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -10,7 +11,7 @@ class ProfileController extends Controller
 {
     public function schoolProfile()
     {
-        $profile = SchoolProfile::byType('profile')->active()->first();
+        $profile = SchoolSetting::first();
         return view('profile.school-profile', compact('profile'));
     }
 
@@ -22,8 +23,8 @@ class ProfileController extends Controller
 
     public function visionMission()
     {
-        $visionMission = SchoolProfile::byType('visi_misi')->active()->first();
-        return view('profile.vision-mission', compact('visionMission'));
+        $profile = SchoolSetting::first();
+        return view('profile.vision-mission', compact('profile'));
     }
 
     public function teachers()
