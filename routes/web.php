@@ -12,6 +12,7 @@ use App\Http\Controllers\{
     ContactController,
     DashboardController
 };
+use App\Http\Controllers\Admin\UserController as AdminUserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -104,6 +105,10 @@ Route::middleware(['auth'])->group(function () {
     
     // Admin only routes
     Route::middleware(['role:admin'])->prefix('admin')->name('admin.')->group(function () {
+        // User management routes
+        Route::resource('users', AdminUserController::class);
+        Route::patch('/users/{user}/toggle-status', [AdminUserController::class, 'toggleStatus'])->name('users.toggle-status');
+        
         // News management routes
         Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
         Route::post('/news', [NewsController::class, 'store'])->name('news.store');

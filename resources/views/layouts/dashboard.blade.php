@@ -34,6 +34,9 @@
 
     @livewireScripts
     
+    <!-- Additional Scripts Stack -->
+    @stack('scripts')
+    
     <!-- Dashboard Scripts -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
