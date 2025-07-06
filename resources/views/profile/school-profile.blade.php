@@ -137,7 +137,7 @@
         @if($profile->school_image)
             <div class="relative">
                 <!-- Main Image Container -->
-                <div class="relative h-[500px] overflow-hidden">
+                <div class="relative h-[500px] overflow">
                     <img src="{{ Storage::url($profile->school_image) }}" alt="{{ $profile->school_name }}" class="w-full h-full object-cover transition-transform duration-700 hover:scale-105">
                     
                     <!-- Gradient Overlays -->

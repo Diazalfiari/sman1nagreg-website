@@ -5,7 +5,7 @@
             <!-- School Info -->
             <div class="col-span-1 lg:col-span-2">
                 <div class="flex items-center mb-4">
-                    <img class="h-10 w-10 mr-3" src="{{ asset('images/logo.png') }}" alt="SMAN 1 Nagreg">
+                    <img class="h-10 w-10 mr-3" src="{{ asset('storage/images/logo.png') }}" alt="SMAN 1 Nagreg">
                     <div>
                         <h3 class="text-xl font-bold">SMAN 1 Nagreg</h3>
                         <p class="text-sm text-gray-300">Sekolah Unggul Berkarakter</p>
@@ -106,9 +106,7 @@
                 <p class="text-gray-400 text-sm">
                     &copy; {{ date('Y') }} SMAN 1 Nagreg. All rights reserved.
                 </p>
-                <p class="text-gray-500 text-xs mt-1">
-                    Developed with ❤️ for better education
-                </p>
+                
             </div>
             <div class="mt-4 md:mt-0 flex space-x-6">
                 <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors duration-200">Privacy Policy</a>
