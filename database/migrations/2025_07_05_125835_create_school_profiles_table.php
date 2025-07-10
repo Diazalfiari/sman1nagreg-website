@@ -13,16 +13,12 @@ return new class extends Migration
     {
         Schema::create('school_profiles', function (Blueprint $table) {
             $table->id();
-            $table->string('school_name');
-            $table->text('school_address');
-            $table->string('school_phone', 20);
-            $table->string('school_email');
-            $table->string('principal_name');
-            $table->text('vision');
-            $table->text('mission');
-            $table->text('history')->nullable();
-            $table->string('school_logo')->nullable();
-            $table->string('school_image')->nullable();
+            $table->string('type'); // profile, sejarah, visi_misi
+            $table->string('title');
+            $table->longText('content');
+            $table->string('image')->nullable();
+            $table->integer('order')->default(0);
+            $table->boolean('is_active')->default(true);
             $table->timestamps();
         });
     }
