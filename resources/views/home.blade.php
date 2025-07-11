@@ -3,72 +3,146 @@
 @section('title', 'Beranda')
 
 @section('content')
-<!-- Hero Section with Background Image -->
-<section class="relative bg-gradient-to-br from-blue-900 via-blue-800 to-blue-600 text-white overflow-hidden">
-    <!-- Background Pattern -->
-    <div class="absolute inset-0 bg-black opacity-20"></div>
-    <div class="absolute inset-0 bg-gradient-to-r from-blue-900/50 to-transparent"></div>
-    
-    <!-- Floating Elements -->
-    <div class="absolute top-20 left-10 w-20 h-20 bg-yellow-400 opacity-20 rounded-full animate-pulse"></div>
-    <div class="absolute bottom-20 right-20 w-32 h-32 bg-white opacity-10 rounded-full animate-bounce"></div>
-    <div class="absolute top-40 right-10 w-16 h-16 bg-yellow-300 opacity-30 rounded-full"></div>
-    
-    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-32">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <!-- Content -->
-            <div class="text-center lg:text-left">
-                <div class="inline-block px-4 py-2 bg-yellow-500/20 rounded-full text-yellow-300 text-sm font-medium mb-6">
-                    🎓 Sekolah Menengah Atas Negeri
-                </div>
-                <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-                    <span class="block text-white">Selamat Datang di</span>
-                    <span class="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-200">
-                        SMAN 1 Nagreg
-                    </span>
-                </h1>
-                <p class="text-xl md:text-2xl mb-8 text-blue-100 leading-relaxed">
-                    Membentuk generasi unggul berkarakter dengan pendidikan berkualitas tinggi 
-                    dan nilai-nilai kebangsaan yang kuat.
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                    <a href="{{ route('profile.school') }}" 
-                       class="group bg-gradient-to-r from-yellow-500 to-yellow-400 hover:from-yellow-600 hover:to-yellow-500 text-gray-900 font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                        <span class="flex items-center justify-center">
-                            Tentang Kami
-                            <svg class="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </span>
-                    </a>
-                    <a href="{{ route('news.index') }}" 
-                       class="group bg-transparent border-2 border-white hover:bg-white hover:text-blue-600 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 backdrop-blur-sm">
-                        <span class="flex items-center justify-center">
-                            Berita Terbaru
-                            <svg class="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path>
-                            </svg>
-                        </span>
-                    </a>
-                </div>
+<!-- Hero Section with Database Image -->
+<section class="relative overflow-hidden">
+    @if($profile && $profile->school_image)
+        <!-- Hero dengan Background Image dari Database -->
+        <div class="relative h-screen">
+            <!-- Background Image -->
+            <div class="absolute inset-0">
+                <img src="{{ Storage::url($profile->school_image) }}" 
+                     alt="{{ $profile->school_name ?? 'SMAN 1 Nagreg' }}" 
+                     class="w-full h-full object-cover">
             </div>
             
-            <!-- Hero Image/Illustration -->
-            <div class="relative">
-                <div class="relative z-10 bg-white/10 backdrop-blur-lg rounded-3xl p-8 border border-white/20">
-                    <img src="{{ asset('images/school-building.jpg') }}" 
-                         alt="SMAN 1 Nagreg" 
-                         class="w-full h-80 object-cover rounded-2xl shadow-2xl">
-                    <div class="absolute -bottom-4 -right-4 bg-yellow-500 text-gray-900 px-6 py-3 rounded-xl font-bold shadow-lg">
-                        ⭐ Terakreditasi A
+            <!-- Gradient Overlays -->
+            <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/20"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-900/40 to-transparent"></div>
+            
+            <!-- Content -->
+            <div class="relative z-10 flex items-center justify-center h-full">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <div class="inline-block px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full text-white text-sm font-medium mb-6">
+                        🎓 Sekolah Menengah Atas Negeri
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight text-white">
+                        <span class="block">Selamat Datang di</span>
+                        <span class="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-200">
+                            {{ $profile->school_name ?? 'SMAN 1 Nagreg' }}
+                        </span>
+                    </h1>
+                    
+                    <p class="text-xl md:text-2xl mb-8 text-white/90 leading-relaxed max-w-3xl mx-auto">
+                        {{ $profile->school_motto ?? 'Membentuk generasi unggul berkarakter dengan pendidikan berkualitas tinggi dan nilai-nilai kebangsaan yang kuat.' }}
+                    </p>
+                    
+                    <!-- Status Badges -->
+                    <div class="flex flex-wrap justify-center gap-4 text-sm mb-8">
+                        @if($profile->accreditation_grade)
+                            <span class="inline-flex items-center bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-full font-semibold">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+                                </svg>
+                                Akreditasi {{ $profile->accreditation_grade }}
+                            </span>
+                        @endif
+                        
+                        @if($profile->school_status)
+                            <span class="inline-flex items-center bg-gradient-to-r from-blue-500 to-cyan-600 text-white px-4 py-2 rounded-full font-semibold">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                {{ $profile->school_status }}
+                            </span>
+                        @endif
+                        
+                        @if($profile->establishment_year)
+                            <span class="inline-flex items-center bg-gradient-to-r from-purple-500 to-indigo-600 text-white px-4 py-2 rounded-full font-semibold">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                                </svg>
+                                Sejak {{ $profile->establishment_year }}
+                            </span>
+                        @endif
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="{{ route('profile.school') }}" 
+                           class="group bg-gradient-to-r from-yellow-500 to-yellow-400 hover:from-yellow-600 hover:to-yellow-500 text-gray-900 font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                            <span class="flex items-center justify-center">
+                                Tentang Kami
+                                <svg class="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </span>
+                        </a>
+                        <a href="{{ route('news.index') }}" 
+                           class="group bg-white/20 backdrop-blur-sm border-2 border-white hover:bg-white hover:text-blue-600 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300">
+                            <span class="flex items-center justify-center">
+                                Berita Terbaru
+                                <svg class="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path>
+                                </svg>
+                            </span>
+                        </a>
                     </div>
                 </div>
-                <!-- Decorative elements -->
-                <div class="absolute -top-6 -left-6 w-24 h-24 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full opacity-80"></div>
-                <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full opacity-60"></div>
             </div>
         </div>
-    </div>
+    @else
+        <!-- Fallback Hero Section -->
+        <div class="relative h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-blue-600 text-white overflow-hidden">
+            <!-- Background Pattern -->
+            <div class="absolute inset-0 bg-black opacity-20"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-blue-900/50 to-transparent"></div>
+            
+            <!-- Floating Elements -->
+            <div class="absolute top-20 left-10 w-20 h-20 bg-yellow-400 opacity-20 rounded-full animate-pulse"></div>
+            <div class="absolute bottom-20 right-20 w-32 h-32 bg-white opacity-10 rounded-full animate-bounce"></div>
+            <div class="absolute top-40 right-10 w-16 h-16 bg-yellow-300 opacity-30 rounded-full"></div>
+            
+            <div class="relative flex items-center justify-center h-full">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <div class="inline-block px-4 py-2 bg-yellow-500/20 rounded-full text-yellow-300 text-sm font-medium mb-6">
+                        🎓 Sekolah Menengah Atas Negeri
+                    </div>
+                    
+                    <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+                        <span class="block text-white">Selamat Datang di</span>
+                        <span class="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-200">
+                            SMAN 1 Nagreg
+                        </span>
+                    </h1>
+                    
+                    <p class="text-xl md:text-2xl mb-8 text-blue-100 leading-relaxed max-w-3xl mx-auto">
+                        Membentuk generasi unggul berkarakter dengan pendidikan berkualitas tinggi dan nilai-nilai kebangsaan yang kuat.
+                    </p>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <a href="{{ route('profile.school') }}" 
+                           class="group bg-gradient-to-r from-yellow-500 to-yellow-400 hover:from-yellow-600 hover:to-yellow-500 text-gray-900 font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
+                            <span class="flex items-center justify-center">
+                                Tentang Kami
+                                <svg class="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </span>
+                        </a>
+                        <a href="{{ route('news.index') }}" 
+                           class="group bg-transparent border-2 border-white hover:bg-white hover:text-blue-600 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 backdrop-blur-sm">
+                            <span class="flex items-center justify-center">
+                                Berita Terbaru
+                                <svg class="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"></path>
+                                </svg>
+                            </span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
     
     <!-- Scroll Indicator -->
     <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
@@ -78,9 +152,8 @@
     </div>
 </section>
 
-<!-- Stats Section with Enhanced Design -->
+<!-- Stats Section -->
 <section class="bg-white py-20 relative overflow-hidden">
-    <!-- Background Pattern -->
     <div class="absolute inset-0 bg-gradient-to-b from-gray-50 to-white"></div>
     <div class="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-blue-600 via-yellow-500 to-blue-600"></div>
     
@@ -95,9 +168,11 @@
         
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             <div class="group bg-gradient-to-br from-blue-50 to-blue-100 p-8 rounded-2xl text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-blue-200">
-                <div class="text-5xl font-bold text-blue-600 mb-2 group-hover:scale-110 transition-transform">35+</div>
+                <div class="text-5xl font-bold text-blue-600 mb-2 group-hover:scale-110 transition-transform">
+                    {{ $profile && $profile->establishment_year ? date('Y') - $profile->establishment_year : '35' }}+
+                </div>
                 <div class="text-gray-700 font-medium text-lg">Tahun Berdiri</div>
-                <div class="text-sm text-gray-500 mt-2">Sejak 1988</div>
+                <div class="text-sm text-gray-500 mt-2">Sejak {{ $profile->establishment_year ?? '1988' }}</div>
             </div>
             
             <div class="group bg-gradient-to-br from-green-50 to-green-100 p-8 rounded-2xl text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-green-200">
@@ -107,13 +182,17 @@
             </div>
             
             <div class="group bg-gradient-to-br from-purple-50 to-purple-100 p-8 rounded-2xl text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-purple-200">
-                <div class="text-5xl font-bold text-purple-600 mb-2 group-hover:scale-110 transition-transform">50+</div>
+                <div class="text-5xl font-bold text-purple-600 mb-2 group-hover:scale-110 transition-transform">
+                    {{ $profile->total_teachers ?? '60' }}+
+                </div>
                 <div class="text-gray-700 font-medium text-lg">Guru & Staff</div>
                 <div class="text-sm text-gray-500 mt-2">Profesional berpengalaman</div>
             </div>
             
             <div class="group bg-gradient-to-br from-yellow-50 to-yellow-100 p-8 rounded-2xl text-center hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 border border-yellow-200">
-                <div class="text-5xl font-bold text-yellow-600 mb-2 group-hover:scale-110 transition-transform">600+</div>
+                <div class="text-5xl font-bold text-yellow-600 mb-2 group-hover:scale-110 transition-transform">
+                    {{ $profile->total_students ?? '600' }}+
+                </div>
                 <div class="text-gray-700 font-medium text-lg">Siswa Aktif</div>
                 <div class="text-sm text-gray-500 mt-2">Kelas X, XI, XII</div>
             </div>
@@ -121,8 +200,7 @@
     </div>
 </section>
 
-<!-- About Section with Enhanced Layout -->
-@if($schoolProfile)
+<!-- About Section -->
 <section class="bg-gradient-to-br from-gray-50 to-white py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
@@ -133,9 +211,11 @@
                     </svg>
                     Profil Sekolah
                 </div>
-                <h2 class="text-4xl font-bold text-gray-900 mb-6 leading-tight">{{ $schoolProfile->title }}</h2>
+                <h2 class="text-4xl font-bold text-gray-900 mb-6 leading-tight">
+                    {{ $profile->school_name ?? 'SMAN 1 Nagreg' }}
+                </h2>
                 <div class="text-gray-600 mb-8 leading-relaxed text-lg">
-                    {{ Str::limit($schoolProfile->content, 400) }}
+                    {{ $profile->description ?? 'SMAN 1 Nagreg adalah sekolah menengah atas negeri yang berkomitmen untuk memberikan pendidikan berkualitas tinggi dengan mengintegrasikan nilai-nilai karakter, akademik, dan keterampilan untuk mempersiapkan siswa menghadapi tantangan masa depan.' }}
                 </div>
                 
                 <!-- Key Points -->
@@ -186,9 +266,20 @@
             
             <div class="order-1 lg:order-2 relative">
                 <div class="relative">
-                    <img src="{{ asset('images/school-building.jpg') }}" 
-                         alt="SMAN 1 Nagreg" 
-                         class="rounded-2xl shadow-2xl w-full h-96 object-cover">
+                    @if($profile && $profile->school_image)
+                        <img src="{{ Storage::url($profile->school_image) }}" 
+                             alt="{{ $profile->school_name ?? 'SMAN 1 Nagreg' }}" 
+                             class="rounded-2xl shadow-2xl w-full h-96 object-cover">
+                    @else
+                        <div class="rounded-2xl shadow-2xl w-full h-96 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+                            <div class="text-center">
+                                <svg class="w-20 h-20 text-blue-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                                </svg>
+                                <p class="text-blue-600 font-medium">Foto Sekolah</p>
+                            </div>
+                        </div>
+                    @endif
                     <div class="absolute inset-0 bg-gradient-to-t from-blue-900/20 to-transparent rounded-2xl"></div>
                 </div>
                 
@@ -201,7 +292,7 @@
                             </svg>
                         </div>
                         <div>
-                            <div class="font-bold text-gray-900">Akreditasi A</div>
+                            <div class="font-bold text-gray-900">Akreditasi {{ $profile->accreditation_grade ?? 'A' }}</div>
                             <div class="text-sm text-gray-600">Standar Nasional</div>
                         </div>
                     </div>
@@ -214,9 +305,8 @@
         </div>
     </div>
 </section>
-@endif
 
-<!-- News Section with Card Design -->
+<!-- News Section -->
 <section class="bg-white py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
@@ -230,7 +320,7 @@
             <h2 class="text-4xl font-bold text-gray-900 mb-4">Berita Terbaru</h2>
             <div class="w-24 h-1 bg-gradient-to-r from-blue-600 to-yellow-500 mx-auto mb-6"></div>
             <p class="text-gray-600 text-lg max-w-2xl mx-auto">
-                Ikuti perkembangan terbaru dari SMAN 1 Nagreg melalui berita dan pengumuman resmi.
+                Ikuti perkembangan terbaru dari {{ $profile->school_name ?? 'SMAN 1 Nagreg' }} melalui berita dan pengumuman resmi.
             </p>
         </div>
         
@@ -309,7 +399,7 @@
     </div>
 </section>
 
-<!-- Enhanced Features Section -->
+<!-- Features Section -->
 <section class="bg-gradient-to-br from-gray-50 to-blue-50 py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-16">
@@ -322,7 +412,7 @@
             <h2 class="text-4xl font-bold text-gray-900 mb-4">Fasilitas & Program Unggulan</h2>
             <div class="w-24 h-1 bg-gradient-to-r from-blue-600 to-yellow-500 mx-auto mb-6"></div>
             <p class="text-gray-600 text-lg max-w-3xl mx-auto">
-                SMAN 1 Nagreg menyediakan berbagai fasilitas modern dan program unggulan untuk mendukung pembelajaran yang berkualitas dan pengembangan potensi siswa.
+                {{ $profile->school_name ?? 'SMAN 1 Nagreg' }} menyediakan berbagai fasilitas modern dan program unggulan untuk mendukung pembelajaran yang berkualitas dan pengembangan potensi siswa.
             </p>
         </div>
         
@@ -371,57 +461,11 @@
                 <div class="text-sm text-yellow-600 font-medium">Sekolah Hijau</div>
             </div>
         </div>
-        
-        <!-- Additional Features Row -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-8">
-            <div class="group bg-white p-6 rounded-xl hover:shadow-lg transition-all duration-300 border border-gray-100">
-                <div class="flex items-center">
-                    <div class="bg-red-100 p-3 rounded-lg mr-4">
-                        <svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-gray-900">Ekstrakurikuler</h4>
-                        <p class="text-gray-600 text-sm">20+ Pilihan Kegiatan</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="group bg-white p-6 rounded-xl hover:shadow-lg transition-all duration-300 border border-gray-100">
-                <div class="flex items-center">
-                    <div class="bg-indigo-100 p-3 rounded-lg mr-4">
-                        <svg class="h-6 w-6 text-indigo-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-gray-900">Beasiswa</h4>
-                        <p class="text-gray-600 text-sm">Program Bantuan Siswa</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="group bg-white p-6 rounded-xl hover:shadow-lg transition-all duration-300 border border-gray-100">
-                <div class="flex items-center">
-                    <div class="bg-teal-100 p-3 rounded-lg mr-4">
-                        <svg class="h-6 w-6 text-teal-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
-                    </div>
-                    <div>
-                        <h4 class="font-semibold text-gray-900">Asrama</h4>
-                        <p class="text-gray-600 text-sm">Fasilitas Menginap</p>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </section>
 
-<!-- Enhanced CTA Section -->
+<!-- CTA Section -->
 <section class="relative bg-gradient-to-br from-blue-700 via-blue-600 to-blue-800 text-white py-20 overflow-hidden">
-    <!-- Background Elements -->
     <div class="absolute inset-0 bg-black opacity-20"></div>
     <div class="absolute top-0 left-0 w-64 h-64 bg-yellow-500 rounded-full opacity-10 -translate-x-32 -translate-y-32"></div>
     <div class="absolute bottom-0 right-0 w-96 h-96 bg-white rounded-full opacity-5 translate-x-48 translate-y-48"></div>
@@ -437,7 +481,7 @@
         <h2 class="text-4xl md:text-5xl font-bold mb-6 leading-tight">
             Tertarik Bergabung dengan<br>
             <span class="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-200">
-                SMAN 1 Nagreg?
+                {{ $profile->school_name ?? 'SMAN 1 Nagreg' }}?
             </span>
         </h2>
         
@@ -446,26 +490,26 @@
         </p>
         
         <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-            <a href="{{ route('spmb.info') }}" 
+            <a href="{{ route('profile.school') }}" 
                class="group bg-gradient-to-r from-yellow-500 to-yellow-400 hover:from-yellow-600 hover:to-yellow-500 text-gray-900 font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl">
                 <span class="flex items-center">
                     <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
-                    Info SPMB 2025
+                    Info Sekolah
                     <svg class="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
                 </span>
             </a>
             
-            <a href="{{ route('contact') }}" 
+            <a href="{{ route('news.index') }}" 
                class="group bg-transparent border-2 border-white hover:bg-white hover:text-blue-600 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 backdrop-blur-sm">
                 <span class="flex items-center">
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
                     </svg>
-                    Hubungi Kami
+                    Berita Terbaru
                     <svg class="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                     </svg>
@@ -476,7 +520,9 @@
         <!-- Trust Indicators -->
         <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div class="text-center">
-                <div class="text-3xl font-bold text-yellow-400 mb-2">35+</div>
+                <div class="text-3xl font-bold text-yellow-400 mb-2">
+                    {{ $profile && $profile->establishment_year ? date('Y') - $profile->establishment_year : '35' }}+
+                </div>
                 <div class="text-blue-100">Tahun Pengalaman</div>
             </div>
             <div class="text-center">
@@ -484,7 +530,7 @@
                 <div class="text-blue-100">Alumni Sukses</div>
             </div>
             <div class="text-center">
-                <div class="text-3xl font-bold text-yellow-400 mb-2">A</div>
+                <div class="text-3xl font-bold text-yellow-400 mb-2">{{ $profile->accreditation_grade ?? 'A' }}</div>
                 <div class="text-blue-100">Akreditasi Nasional</div>
             </div>
         </div>
