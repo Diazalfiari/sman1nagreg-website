@@ -29,7 +29,7 @@
                     <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight text-white">
                         <span class="block">Selamat Datang di</span>
                         <span class="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-200">
-                            {{ $profile->school_name ?? 'SMAN 1 Nagreg' }}
+                            {{ $profile->school_name ?? 'SMAN 1 NAGREG' }}
                         </span>
                     </h1>
                     

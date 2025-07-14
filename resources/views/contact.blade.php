@@ -160,18 +160,46 @@
                     <p class="text-sm text-green-700">SMAN 1 Nagreg, Bandung, Jawa Barat</p>
                 </div>
                 <div class="p-6">
-                    <!-- Map Placeholder -->
+                    <!-- Interactive Google Maps -->
+                    <!-- 
+                        CATATAN PENTING: 
+                        Silakan update koordinat di bawah ini dengan koordinat yang tepat untuk SMAN 1 Nagreg:
+                        1. Kunjungi Google Maps
+                        2. Cari lokasi SMAN 1 Nagreg yang tepat
+                        3. Klik kanan pada lokasi dan pilih koordinat
+                        4. Ganti nilai latitude dan longitude di iframe src dan JavaScript
+                        
+                        Format koordinat saat ini (contoh):
+                        Latitude: -7.0123456 (ganti dengan koordinat latitude yang tepat)
+                        Longitude: 107.8951234 (ganti dengan koordinat longitude yang tepat)
+                    -->
                     <div class="aspect-w-16 aspect-h-9 mb-6">
-                        <div class="w-full h-80 bg-gray-200 rounded-lg flex items-center justify-center">
-                            <div class="text-center">
-                                <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                </svg>
-                                <p class="text-gray-500">Google Maps</p>
-                                <p class="text-sm text-gray-400">SMAN 1 Nagreg</p>
-                            </div>
+                        <div class="w-full h-80 rounded-lg overflow-hidden shadow-sm border">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1177.2916881257604!2d107.88982309989912!3d-7.018520359940266!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68c9946f5b9fd5%3A0x81b69f0c211b1e24!2sSMAN%201%20Nagreg!5e0!3m2!1sid!2sid!4v1752492980071!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                         </div>
+                    </div>
+
+                    <!-- Map Controls -->
+                    <div class="flex flex-wrap gap-2 mb-6">
+                        <button onclick="openGoogleMaps()" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                            </svg>
+                            Buka di Google Maps
+                        </button>
+                        <button onclick="getDirections()" class="inline-flex items-center px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors duration-200">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                            </svg>
+                            Petunjuk Arah
+                        </button>
+                        <button onclick="shareLocation()" class="inline-flex items-center px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-lg hover:bg-purple-700 transition-colors duration-200">
+                            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"></path>
+                            </svg>
+                            Bagikan Lokasi
+                        </button>
                     </div>
 
                     <!-- Transportation Info -->
@@ -364,6 +392,7 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // FAQ Toggle functionality
     const faqToggles = document.querySelectorAll('.faq-toggle');
     
     faqToggles.forEach(toggle => {
@@ -381,5 +410,98 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+// Map interaction functions
+function openGoogleMaps() {
+    // Koordinat SMAN 1 Nagreg (perkiraan - Anda bisa sesuaikan dengan koordinat yang tepat)
+    const latitude = -7.018577344347745; // Ganti dengan koordinat latitude yang tepat 
+    const longitude = 107.89046422999736; // Ganti dengan koordinat longitude yang tepat
+    const schoolName = 'SMAN 1 Nagreg';
+    
+    // Buka Google Maps di tab baru
+    const mapsUrl = `https://www.google.com/maps/search/?api=1&query=${latitude},${longitude}&query_place_id=${encodeURIComponent(schoolName)}`;
+    window.open(mapsUrl, '_blank');
+}
+
+function getDirections() {
+    // Buka Google Maps dengan petunjuk arah
+    const destination = 'SMAN 1 Nagreg, Jl. Raya Nagreg, Nagreg, Bandung, Jawa Barat';
+    const directionsUrl = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}`;
+    window.open(directionsUrl, '_blank');
+}
+
+function shareLocation() {
+    const schoolInfo = {
+        name: 'SMAN 1 Nagreg',
+        address: 'Jl. Raya Nagreg No. 123, Nagreg, Bandung, Jawa Barat 40376',
+        phone: '(022) 1234-5678',
+        mapsUrl: 'https://maps.app.goo.gl/TjEgWACU2JDdNDt59'
+    };
+    
+    // Cek apakah browser mendukung Web Share API
+    if (navigator.share) {
+        navigator.share({
+            title: schoolInfo.name,
+            text: `${schoolInfo.name}\n${schoolInfo.address}\nTelepon: ${schoolInfo.phone}`,
+            url: schoolInfo.mapsUrl
+        }).catch(console.error);
+    } else {
+        // Fallback: copy ke clipboard
+        const textToCopy = `${schoolInfo.name}\n${schoolInfo.address}\nTelepon: ${schoolInfo.phone}\nLokasi: ${schoolInfo.mapsUrl}`;
+        
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                showNotification('Informasi lokasi telah disalin ke clipboard!');
+            }).catch(() => {
+                fallbackCopyText(textToCopy);
+            });
+        } else {
+            fallbackCopyText(textToCopy);
+        }
+    }
+}
+
+// Fallback function untuk copy text
+function fallbackCopyText(text) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.opacity = '0';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+        document.execCommand('copy');
+        showNotification('Informasi lokasi telah disalin ke clipboard!');
+    } catch (err) {
+        showNotification('Gagal menyalin informasi lokasi. Silakan salin manual.');
+    }
+    
+    document.body.removeChild(textArea);
+}
+
+// Function untuk menampilkan notifikasi
+function showNotification(message) {
+    // Buat element notifikasi
+    const notification = document.createElement('div');
+    notification.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50 transition-all duration-300 transform translate-x-full';
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    // Animasi masuk
+    setTimeout(() => {
+        notification.classList.remove('translate-x-full');
+    }, 100);
+    
+    // Hapus notifikasi setelah 3 detik
+    setTimeout(() => {
+        notification.classList.add('translate-x-full');
+        setTimeout(() => {
+            document.body.removeChild(notification);
+        }, 300);
+    }, 3000);
+}
 </script>
 @endsection
