@@ -12,16 +12,39 @@ class GeminiService
 
     public function __construct()
     {
-        $this->apiKey = config('services.gemini.api_key');
-        $this->baseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
+        $this->apiKey = config('services.gemini.api_key') ?? '';
+        $this->baseUrl = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent';
+        
+        // Log API key status untuk debugging
+        Log::info('GeminiService: API Key configured', [
+            'has_api_key' => !empty($this->apiKey),
+            'api_key_length' => strlen($this->apiKey),
+            'api_key_prefix' => substr($this->apiKey, 0, 10) . '...'
+        ]);
+    }
+
+    public function hasApiKey(): bool
+    {
+        return !empty($this->apiKey);
     }
 
     public function generateResponse(string $message): string
     {
         try {
+            Log::info('GeminiService: Generating response', [
+                'message' => $message,
+                'has_api_key' => !empty($this->apiKey)
+            ]);
+
             if (empty($this->apiKey)) {
+                Log::warning('GeminiService: No API key found, using fallback');
                 return $this->getFallbackResponse($message);
             }
+
+            // Build prompt with school context
+            $prompt = $this->buildPrompt($message);
+            
+            Log::info('GeminiService: Sending request to Gemini API');
 
             $response = Http::timeout(30)
                 ->post($this->baseUrl . '?key=' . $this->apiKey, [
@@ -29,7 +52,7 @@ class GeminiService
                         [
                             'parts' => [
                                 [
-                                    'text' => $this->buildPrompt($message)
+                                    'text' => $prompt
                                 ]
                             ]
                         ]
@@ -42,16 +65,32 @@ class GeminiService
                     ]
                 ]);
 
+            Log::info('GeminiService: API response received', [
+                'status' => $response->status(),
+                'successful' => $response->successful()
+            ]);
+
             if ($response->successful()) {
                 $data = $response->json();
-                return $data['candidates'][0]['content']['parts'][0]['text'] ?? $this->getFallbackResponse($message);
+                $aiResponse = $data['candidates'][0]['content']['parts'][0]['text'] ?? null;
+                
+                if ($aiResponse) {
+                    Log::info('GeminiService: AI response generated successfully');
+                    return $aiResponse;
+                }
             }
 
-            Log::warning('Gemini API error', ['response' => $response->body()]);
+            Log::warning('GeminiService: API error, using fallback', [
+                'status' => $response->status(),
+                'body' => $response->body()
+            ]);
             return $this->getFallbackResponse($message);
 
         } catch (\Exception $e) {
-            Log::error('Gemini API exception', ['error' => $e->getMessage()]);
+            Log::error('GeminiService: Exception occurred', [
+                'error' => $e->getMessage(),
+                'trace' => $e->getTraceAsString()
+            ]);
             return $this->getFallbackResponse($message);
         }
     }
@@ -65,7 +104,7 @@ Informasi tentang sekolah:
 - Alamat: Jl. Raya Nagreg No. 123, Nagreg, Bandung 40376
 - Telepon: (022) 123-4567
 - Email: info@sman1nagreg.sch.id
-- Tahun berdiri: 1985
+- Tahun berdiri: 2004
 - Status: Terakreditasi A
 - Program: IPA, IPS, Bahasa
 - Fasilitas: Perpustakaan digital, laboratorium sains, ruang multimedia, program Adiwiyata
@@ -126,13 +165,7 @@ Jawaban:";
             return 'Jam belajar di SMAN 1 Nagreg adalah Senin-Jumat pukul 07.00-15.00 WIB, dan Sabtu pukul 07.00-11.00 WIB. Jadwal pelajaran lengkap dapat dilihat di halaman Akademik > Jadwal Pelajaran di website kami.';
         }
         
-        // Respons default
+    // Respons default
         return 'Terima kasih atas pertanyaan Anda tentang SMAN 1 Nagreg. Untuk informasi lebih detail, silakan kunjungi halaman terkait di website kami atau hubungi langsung ke sekolah di (022) 123-4567. Apakah ada hal lain tentang SMAN 1 Nagreg yang ingin Anda ketahui?';
-    }
-
-    // Public method untuk testing
-    public function getTestResponse(string $message): string
-    {
-        return $this->getFallbackResponse($message);
     }
 }

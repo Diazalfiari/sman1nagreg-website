@@ -71,15 +71,17 @@ class Chatbot extends Component
         Log::info('Chatbot: Sleeping for ' . $typingDelay . ' seconds');
         sleep($typingDelay);
 
-        // For testing purpose, use fallback response first
         try {
             $geminiService = app(GeminiService::class);
             $botResponse = $geminiService->generateResponse($userMessage);
+            
+            Log::info('Chatbot: Response generated successfully');
+            
         } catch (\Exception $e) {
             Log::error('Chatbot error: ' . $e->getMessage());
             
-            // Use fallback response from GeminiService
-            $botResponse = $geminiService->getTestResponse($userMessage);
+            // Use manual fallback response
+            $botResponse = $this->getManualFallbackResponse($userMessage);
         }
         
         // Add bot response
@@ -94,6 +96,35 @@ class Chatbot extends Component
         
         // Dispatch browser event for UI cleanup
         $this->dispatch('typing-finished');
+    }
+
+    private function getManualFallbackResponse($message): string
+    {
+        $message = strtolower($message);
+        
+        // Respons berdasarkan kata kunci
+        if (str_contains($message, 'profil') || str_contains($message, 'sejarah') || str_contains($message, 'tentang')) {
+            return 'SMAN 1 Nagreg adalah sekolah menengah atas negeri yang didirikan pada tahun 1985 di Nagreg, Kabupaten Bandung. Kami berkomitmen memberikan pendidikan berkualitas tinggi dengan fasilitas modern dan tenaga pengajar yang kompeten. Sekolah kami terakreditasi A dan memiliki program IPA, IPS, dan Bahasa.';
+        }
+        
+        if (str_contains($message, 'alamat') || str_contains($message, 'lokasi') || str_contains($message, 'dimana')) {
+            return 'SMAN 1 Nagreg berlokasi di Jl. Raya Nagreg No. 123, Nagreg, Bandung 40376, Jawa Barat. Anda dapat menghubungi kami di telepon (022) 123-4567 atau email info@sman1nagreg.sch.id.';
+        }
+        
+        if (str_contains($message, 'pendaftaran') || str_contains($message, 'spmb') || str_contains($message, 'daftar')) {
+            return 'Informasi pendaftaran siswa baru (SPMB) dapat Anda akses melalui website resmi Dinas Pendidikan Jawa Barat. Anda juga bisa mengunjungi halaman SPMB di website kami untuk informasi lebih detail.';
+        }
+        
+        if (str_contains($message, 'ekstrakurikuler') || str_contains($message, 'ekskul') || str_contains($message, 'kegiatan')) {
+            return 'SMAN 1 Nagreg memiliki berbagai ekstrakurikuler yang menarik seperti Pramuka, OSIS, Rohani Islam (Rohis), Olahraga (sepak bola, basket, voli), Seni (tari, musik, teater), Jurnalistik, dan masih banyak lagi.';
+        }
+        
+        if (str_contains($message, 'fasilitas') || str_contains($message, 'laboratorium') || str_contains($message, 'perpustakaan')) {
+            return 'Fasilitas SMAN 1 Nagreg meliputi: perpustakaan digital dengan akses ke ribuan buku online, laboratorium sains (kimia, fisika, biologi), ruang multimedia untuk pembelajaran interaktif, laboratorium komputer, ruang kelas ber-AC, lapangan olahraga, dan program Adiwiyata untuk pendidikan lingkungan hidup.';
+        }
+        
+        // Respons default
+        return 'Terima kasih atas pertanyaan Anda tentang SMAN 1 Nagreg. Untuk informasi lebih detail, silakan kunjungi halaman terkait di website kami atau hubungi langsung ke sekolah di (022) 123-4567. Apakah ada hal lain tentang SMAN 1 Nagreg yang ingin Anda ketahui?';
     }
 
     public function toggleChat()
